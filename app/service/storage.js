@@ -10,7 +10,12 @@ class storageService extends Service {
   */
   async productCount(reqQuery) {
     const { app } = this;
-    const products = await app.mysql.select('storage', { where: reqQuery });
+    let sql = 'select * from storage';
+    const { where } = reqQuery;
+    if (where) {
+      sql += ` where ${where}`;
+    }
+    const products = await app.mysql.query(sql);
     if (!products) {
       return { code: 1, desc: '查询失败' };
     }
@@ -22,12 +27,15 @@ class storageService extends Service {
   */
   async products(reqQuery) {
     const { app } = this;
-    const { currentPage, currentPageSize, type } = reqQuery;
+    const { currentPage, currentPageSize, where } = reqQuery;
     const limit = currentPageSize; // 返回数据量
     const offset = (currentPage - 1) * currentPageSize; // 数据偏移量
-    const queryData = {};
-    if (type != null) queryData.type = type;
-    const products = await app.mysql.select('storage', { limit, offset, where: queryData });
+    let sql = 'select * from storage';
+    if (where) {
+      sql += ` where ${where}`;
+    }
+    sql += ` LIMIT ${offset}, ${limit}`;
+    const products = await app.mysql.query(sql);
     // 处理显示时间
     products.forEach(pro => {
       pro.inTime = moment(pro.inTime).format('YYYY-MM-DD HH:mm:ss');

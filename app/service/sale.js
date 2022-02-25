@@ -4,10 +4,6 @@ const Service = require('egg').Service;
 const moment = require('moment');
 
 class SaleService extends Service {
-  // async gather(reqBody) {
-  //   const { app, ctx } = this;
-  // }
-
   // 查询销售额
   async saleInfos(reqQuery) {
     const { app } = this;
@@ -64,7 +60,7 @@ class SaleService extends Service {
     return { code: 0, desc: '查询成功', options: saleInfos };
   }
 
-  // 获取有销售记录的年份
+  // 查询有销售记录的年份
   async years() {
     const { app } = this;
     const sql = 'select s_time from orderform ORDER BY s_time asc';
