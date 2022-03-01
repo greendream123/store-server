@@ -16,7 +16,7 @@ module.exports = appInfo => {
   config.middleware = [ 'tokenHandler' ];
   // 中间件执行匹配开启
   config.tokenHandler = {
-    // enable: false,
+    enable: false,
     // match(ctx) { // 只匹配指定路由，反之如果只忽略指定路由，可以用ignore
     //   // 匹配不需要验证token的路由
     //   const url = ctx.request.url;
@@ -69,6 +69,10 @@ module.exports = appInfo => {
   // jwt 私钥
   config.jwt = {
     secret: 'liwenjie',
+  };
+  // 上传 开启file模式
+  config.multipart = {
+    mode: 'stream',
   };
   // add your user config here
   const userConfig = {

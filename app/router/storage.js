@@ -11,4 +11,5 @@ module.exports = app => {
   router.post('/addProduct', storage.addProduct);
   router.post('/delProduct', storage.delProduct);
   router.post('/editProduct', storage.editProduct);
+  router.post('/uploadPicture', storage.uploadPicture);
 };

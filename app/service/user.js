@@ -21,6 +21,7 @@ class UserService extends Service {
     }
     const token = ctx.helper.getToken(reqBody);
     user.token = token;
+    user.password = undefined;
     return { code: 0, desc: '登录成功', options: user };
   }
 
