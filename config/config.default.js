@@ -16,7 +16,8 @@ module.exports = appInfo => {
   config.middleware = [ 'tokenHandler' ];
   // 中间件执行匹配开启
   config.tokenHandler = {
-    enable: false,
+    enable: true,
+    ignore: '/login',
     // match(ctx) { // 只匹配指定路由，反之如果只忽略指定路由，可以用ignore
     //   // 匹配不需要验证token的路由
     //   const url = ctx.request.url;
@@ -28,7 +29,6 @@ module.exports = appInfo => {
     //     return false;
     //   }
     // },
-    ignore: '/login',
   };
 
   // use for cookie sign key, should change to your own and keep security
@@ -49,7 +49,7 @@ module.exports = appInfo => {
   };
   // cors
   config.cors = {
-    // origin: 'http://localhost:8080', // vue axios发送请求携带cookie时，此处不允许为通配符 *
+    // origin: 'http://192.168.0.100:8080', // vue axios发送请求携带cookie时，此处不允许为通配符 *
     origin: '*',
     allowMethods: 'GET,HEAD,PUT,OPTIONS,POST,DELETE,PATCH',
     credentials: true, // 允许客户端发送cookie
@@ -63,7 +63,7 @@ module.exports = appInfo => {
   };
   // log
   config.logger = {
-    dir: '/z/server/logs/sale',
+    dir: `${appInfo.root}/logs/sale`,
     outputJSON: true,
   };
   // jwt 私钥
@@ -73,6 +73,11 @@ module.exports = appInfo => {
   // 上传 开启file模式
   config.multipart = {
     mode: 'stream',
+  };
+  // socket
+  config.io = {
+    init: {},
+    namespace: {},
   };
   // add your user config here
   const userConfig = {

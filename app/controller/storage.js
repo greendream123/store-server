@@ -81,7 +81,7 @@ class StorageController extends Controller {
    */
   async uploadPicture() {
     const { ctx } = this;
-    // 获取文件对象
+    // 获取文件对象 此对象包含所有上传携带信息  组件上传data = stream.fields
     const stream = await ctx.getFileStream();
     // 结果对象
     let result = {};
